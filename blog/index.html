@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Web Artikel - Adjarindo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --navy: #0B1C3C; --navy-light: rgba(26, 54, 93, 0.75); --orange: #ED8936; --purple: #805AD5; --blue-accent: #4299E1; --text-light: #F7FAFC; --text-gray: #CBD5E0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-light);
+            background: linear-gradient(rgba(5, 14, 31, 0.92), rgba(11, 28, 60, 0.88)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2028&auto=format&fit=crop') center/cover no-repeat fixed; }
+
+        .demo-bar { background: var(--orange); color: var(--navy); text-align: center; padding: 10px; font-weight: 600; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .demo-bar a { background: var(--navy); color: var(--white); padding: 5px 15px; border-radius: 20px; text-decoration: none; font-size: 0.8rem; }
+
+        .blog-nav { background: rgba(11, 28, 60, 0.9); backdrop-filter: blur(10px); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .blog-logo { font-weight: 800; font-size: 1.4rem; color: var(--white); letter-spacing: -0.5px;}
+        .blog-logo span { color: var(--orange); }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: var(--text-gray); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--white); }
+
+        .container { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+        .featured-post { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; margin-bottom: 60px; }
+        .fp-image { width: 100%; height: 350px; object-fit: cover; border-radius: 16px; transition: 0.3s; }
+        .fp-content { display: flex; flex-direction: column; justify-content: center; }
+        .fp-tag { color: var(--orange); font-weight: 600; font-size: 0.85rem; margin-bottom: 10px; }
+        .fp-title { font-size: 2.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 15px; }
+        .fp-excerpt { color: var(--text-gray); line-height: 1.6; margin-bottom: 20px; }
+
+        .section-title { font-size: 1.5rem; margin-bottom: 30px; border-left: 4px solid var(--purple); padding-left: 15px; }
+        .articles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .glass-card { background: var(--navy-light); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; transition: 0.3s; }
+        .glass-card:hover { transform: translateY(-5px); border-color: var(--purple); }
+        .ac-image { width: 100%; height: 200px; object-fit: cover; }
+        .ac-content { padding: 20px; }
+        .ac-tag { font-size: 0.75rem; background: rgba(128,90,213,0.2); color: var(--purple); padding: 3px 8px; border-radius: 4px; }
+        .ac-content h3 { margin: 10px 0; font-size: 1.1rem; line-height: 1.4; }
+        .ac-content p { color: var(--text-gray); font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px; }
+        .btn-locked { background: rgba(255,255,255,0.1); border: 1px dashed var(--orange); color: var(--orange); padding: 5px 12px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
+
+        .premium-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .premium-popup { background: var(--navy); border: 1px solid var(--orange); border-radius: 16px; padding: 40px; max-width: 450px; width: 90%; text-align: center; position: relative; }
+        .close-popup { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--text-gray); cursor: pointer; background: none; border: none; }
+        .premium-popup h2 { font-size: 1.5rem; margin: 20px 0 10px; }
+        .premium-popup p { color: var(--text-gray); margin-bottom: 25px; }
+        .btn-premium { background: var(--orange); color: var(--white); padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
+
+        .floating-wa { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-decoration: none; z-index: 100; }
+        @media (max-width: 768px) { .featured-post { grid-template-columns: 1fr; } .fp-title { font-size: 1.5rem; } }
+    </style>
+</head>
+<body>
+    <div class="demo-bar">
+        <span>📰 Demo Web Artikel / Blog JAMstack</span>
+        <a href="../index.html">← Kembali ke Beranda</a>
+    </div>
+
+    <nav class="blog-nav">
+        <div class="blog-logo">Literasi<span>Digital</span></div>
+        <div class="nav-links">
+            <a href="javascript:void(0)" onclick="showPremiumPopup(event)">E-Magazine</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="featured-post">
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1000&auto=format&fit=crop" class="fp-image" alt="Featured">
+            <div class="fp-content">
+                <span class="fp-tag">TEKNOLOGI PENDIDIKAN</span>
+                <h1 class="fp-title">Mengapa Guru Harus Mulai Menggunakan AI di 2024?</h1>
+                <p class="fp-excerpt">Kecerdasan buatan bukan untuk menggantikan guru, melainkan sebagai asisten super yang membebaskan waktu dari administrasi.</p>
+                <a href="javascript:void(0)" onclick="showPremiumPopup(event)" class="btn-locked"><i data-lucide="lock" style="width:14px;height:14px;"></i> Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">Artikel Terbaru</h2>
+        <div class="articles-grid">
+            <div class="glass-card">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=500&auto=format&fit=crop" class="ac-image" alt="Article 1">
+                <div class="ac-content">
+                    <span class="ac-tag">Karir</span>
+                    <h3>Strategi Portofolio Digital yang Dicari HRD Killer</h3>
+                    <p>CV biasa sudah mati. Inilah alasan mengapa perusahaan besar lebih memilih web portofolio.</p>
+                    <a href="javascript:void(0)" onclick="showPremiumPopup(event)" class="btn-locked"><i data-lucide="lock" style="width:12px;height:12px;"></i> Baca</a>
+                </div>
+            </div>
+            <div class="glass-card">
+                <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=500&auto=format&fit=crop" class="ac-image" alt="Article 2">
+                <div class="ac-content">
+                    <span class="ac-tag">Sekolah</span>
+                    <h3>Dana BOS Tidak Cukup untuk Digitalisasi?</h3>
+                    <p>Panduan memanfaatkan JAMstack untuk ekosistem sekolah tanpa biaya hosting.</p>
+                    <a href="javascript:void(0)" onclick="showPremiumPopup(event)" class="btn-locked"><i data-lucide="lock" style="width:12px;height:12px;"></i> Baca</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="premium-overlay" id="premiumOverlay">
+        <div class="premium-popup">
+            <button class="close-popup" onclick="closePremiumPopup()">&times;</button>
+            <div style="font-size: 3rem;">🔒</div>
+            <h2>Fitur Premium</h2>
+            <p>Akses artikel premium dan majalah digital lengkap hanya untuk subscriber.</p>
+            <a href="https://wa.me/6285710908070?text=Halo%20Adjarindo,%20saya%20ingin%20berlangganan%20Blog%20Premium." class="btn-premium" target="_blank">
+                <i data-lucide="message-circle" style="width:18px; height:18px;"></i> Langganan via WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <a href="https://wa.me/6285710908070" class="floating-wa" target="_blank"><i data-lucide="message-circle"></i></a>
+    <script>
+        lucide.createIcons();
+        function showPremiumPopup(e) { if(e) e.preventDefault(); document.getElementById('premiumOverlay').style.display = 'flex'; }
+        function closePremiumPopup() { document.getElementById('premiumOverlay').style.display = 'none'; }
+        document.getElementById('premiumOverlay').addEventListener('click', function(e) { if(e.target === this) closePremiumPopup(); });
+    </script>
+</body>
+</html>

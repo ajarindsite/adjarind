@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Web Personal - Adjarindo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --navy: #0B1C3C; --navy-light: rgba(26, 54, 93, 0.75); --orange: #ED8936; --purple: #805AD5; --blue-accent: #4299E1; --text-light: #F7FAFC; --text-gray: #CBD5E0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-light);
+            background: linear-gradient(rgba(5, 14, 31, 0.85), rgba(11, 28, 60, 0.82)), url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed; }
+
+        .demo-bar { background: var(--purple); color: var(--white); text-align: center; padding: 10px; font-weight: 600; font-size: 0.9rem; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .demo-bar a { background: var(--white); color: var(--purple); padding: 5px 15px; border-radius: 20px; text-decoration: none; font-size: 0.8rem; font-weight: 600; }
+        
+        .portfolio-container { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 40px); }
+        .sidebar { background: rgba(11, 28, 60, 0.9); backdrop-filter: blur(10px); padding: 40px 20px; border-right: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .profile-pic { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--orange); margin-bottom: 20px; }
+        .sidebar h2 { font-size: 1.3rem; margin-bottom: 5px; }
+        .sidebar h3 { font-size: 0.9rem; color: var(--orange); font-weight: 500; margin-bottom: 20px; }
+        .contact-list { list-style: none; width: 100%; margin-bottom: 30px; }
+        .contact-list li { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 0.85rem; color: var(--text-gray); background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; }
+        .skills-section { width: 100%; text-align: left; margin-top: 10px; }
+        .skills-section h4 { margin-bottom: 15px; font-size: 1rem; border-bottom: 2px solid var(--purple); padding-bottom: 5px; display: inline-block; }
+        .skill-tag { display: inline-block; background: rgba(128, 90, 213, 0.2); color: var(--purple); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; margin: 0 5px 10px 0; }
+
+        .main-content { padding: 40px; }
+        .glass-card { background: var(--navy-light); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 25px; margin-bottom: 30px; }
+        .section-title { font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--white); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .section-title i { color: var(--orange); }
+        
+        .timeline { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 20px; }
+        .timeline-item { margin-bottom: 25px; position: relative; }
+        .timeline-item::before { content: ""; position: absolute; left: -26px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--orange); }
+        .timeline-item h4 { color: var(--white); font-size: 1.1rem; }
+        .timeline-item p { color: var(--orange); font-size: 0.85rem; font-weight: 600; }
+        .timeline-item ul { margin-top: 5px; padding-left: 15px; color: var(--text-gray); font-size: 0.9rem; }
+        .btn-locked { background: rgba(255,255,255,0.1); border: 1px dashed var(--purple); color: var(--purple); padding: 8px 15px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
+
+        .premium-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .premium-popup { background: var(--navy); border: 1px solid var(--purple); border-radius: 16px; padding: 40px; max-width: 450px; width: 90%; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .close-popup { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--text-gray); cursor: pointer; background: none; border: none; }
+        .premium-popup h2 { font-size: 1.5rem; margin: 20px 0 10px; }
+        .premium-popup p { color: var(--text-gray); margin-bottom: 25px; font-size: 0.95rem; }
+        .btn-premium { background: var(--purple); color: var(--white); padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
+
+        .floating-wa { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-decoration: none; z-index: 100; }
+        @media (max-width: 768px) { .portfolio-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="demo-bar">
+        <span>🚀 Demo Web Portofolio Resume (Tembus HRD)</span>
+        <a href="../index.html">← Kembali ke Beranda</a>
+    </div>
+
+    <div class="portfolio-container">
+        <aside class="sidebar">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=500&auto=format&fit=crop" alt="Profile" class="profile-pic">
+            <h2>Rizky Pratama</h2>
+            <h3>Digital Marketing Specialist</h3>
+            
+            <ul class="contact-list">
+                <li><i data-lucide="mail" style="width:16px;"></i> rizky@email.com</li>
+                <li><i data-lucide="map-pin" style="width:16px;"></i> Jakarta, Indonesia</li>
+            </ul>
+
+            <div class="skills-section">
+                <h4>Keahlian</h4>
+                <div><span class="skill-tag">Social Media Ads</span><span class="skill-tag">SEO & SEM</span><span class="skill-tag">AI Prompting</span></div>
+            </div>
+            <br>
+            <a href="javascript:void(0)" onclick="showPremiumPopup(event)" class="btn-locked" style="width:100%; justify-content:center;"><i data-lucide="lock" style="width:14px;height:14px;"></i> Download CV</a>
+        </aside>
+
+        <main class="main-content">
+            <div class="glass-card">
+                <h2 class="section-title"><i data-lucide="user" style="width:24px; height:24px;"></i> Profil Singkat</h2>
+                <p style="color: var(--text-gray); line-height: 1.8;">Lulusan S1 Komunikasi dengan pengalaman 3 tahun di bidang Digital Marketing. Berhasil meningkatkan konversi sales hingga 150% melalui optimasi iklan berbasis AI.</p>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="section-title"><i data-lucide="briefcase" style="width:24px; height:24px;"></i> Pengalaman Kerja</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Senior Digital Marketer</h4>
+                        <p>PT Teknologi Nusantara (2022 - Sekarang)</p>
+                        <ul><li>Memimpin tim 5 orang untuk ekspansi pasar.</li></ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="premium-overlay" id="premiumOverlay">
+        <div class="premium-popup">
+            <button class="close-popup" onclick="closePremiumPopup()">&times;</button>
+            <div style="font-size: 3rem;">🔒</div>
+            <h2>Fitur Premium</h2>
+            <p>Download CV PDF dan Custom Domain hanya untuk paket Career Readiness Premium.</p>
+            <a href="https://wa.me/6285710908070?text=Halo%20Adjarindo,%20saya%20ingin%20paket%20Web%20Portofolio%20Premium." class="btn-premium" target="_blank">
+                <i data-lucide="message-circle" style="width:18px; height:18px;"></i> Upgrade via WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <a href="https://wa.me/6285710908070" class="floating-wa" target="_blank"><i data-lucide="message-circle"></i></a>
+
+    <script>
+        lucide.createIcons();
+        function showPremiumPopup(e) { if(e) e.preventDefault(); document.getElementById('premiumOverlay').style.display = 'flex'; }
+        function closePremiumPopup() { document.getElementById('premiumOverlay').style.display = 'none'; }
+        document.getElementById('premiumOverlay').addEventListener('click', function(e) { if(e.target === this) closePremiumPopup(); });
+    </script>
+</body>
+</html>

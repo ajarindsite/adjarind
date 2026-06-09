@@ -1,0 +1,33 @@
+backend:
+  name: github
+  repo: Adjarindoweb/Adjarindoweb # Ganti dengan username/nama repo GitHub kamu
+  branch: main # Atau master, sesuaikan dengan branch utama kamu
+
+# Media folder menyimpan gambar yang di-upload melalui CMS
+media_folder: "assets/images/uploads" 
+public_folder: "/assets/images/uploads"
+
+collections:
+  # Koleksi untuk Blog
+  - name: "blog"
+    label: "Blog / Artikel"
+    folder: "Blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "thumbnail", widget: "image"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Koleksi untuk Galeri (Format JSON/Markdown untuk dibaca Landing Page)
+  - name: "gallery"
+    label: "Galeri Kegiatan"
+    folder: "gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Foto Kegiatan", name: "image", widget: "image"}
+      - {label: "Ulasan/Sinopsis", name: "description", widget: "text"}

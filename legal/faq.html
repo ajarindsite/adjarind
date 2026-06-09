@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Adjarindo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --navy: #0B1C3C; --navy-light: rgba(26, 54, 93, 0.75); --orange: #ED8936; --purple: #805AD5; --text-light: #F7FAFC; --text-gray: #CBD5E0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-light);
+            background: linear-gradient(rgba(5, 14, 31, 0.92), rgba(11, 28, 60, 0.88)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074&auto=format&fit=crop') center/cover no-repeat fixed; }
+        
+        .top-bar { background: var(--navy); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .logo { font-weight: 700; font-size: 1.2rem; color: var(--white); text-decoration: none; }
+        .logo span { color: var(--orange); }
+        .back-btn { color: var(--text-gray); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 5px; transition: 0.3s; }
+        .back-btn:hover { color: var(--orange); }
+
+        .container { padding: 60px 5%; max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 2.5rem; margin-bottom: 40px; text-align: center; }
+        
+        .faq-item { background: var(--navy-light); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; margin-bottom: 15px; overflow: hidden; }
+        .faq-question { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; transition: 0.3s; }
+        .faq-question:hover { color: var(--orange); }
+        .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; color: var(--text-gray); line-height: 1.6; transition: max-height 0.3s ease-out, padding 0.3s ease-out; }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 20px 20px; }
+        .faq-item.active .faq-question { color: var(--orange); }
+        .faq-item.active .arrow-icon { transform: rotate(180deg); }
+        .arrow-icon { transition: transform 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <a href="../index.html" class="logo">ADJARINDO <span>CREATIVE</span></a>
+        <a href="../index.html" class="back-btn"><i data-lucide="arrow-left" style="width:16px; height:16px;"></i> Kembali ke Beranda</a>
+    </div>
+
+    <div class="container">
+        <h1>Pertanyaan Umum (FAQ)</h1>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Apakah Adjarindo adalah Bimbel atau Lembaga Kursus? <i data-lucide="chevron-down" class="arrow-icon" style="width:20px; height:20px;"></i></div>
+            <div class="faq-answer">Bukan. Adjarindo adalah Creative Agency & Digital Publishing. Kami berfokus pada pembangunan infrastruktur digital (Web/App), pendampingan teknologi AI, dan penerbitan buku. Kami tidak menyediakan bimbingan akademik konvensional (KBLI 85).</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Apakah Saya Perlu Bayar Hosting Bulanan untuk Website? <i data-lucide="chevron-down" class="arrow-icon" style="width:20px; height:20px;"></i></div>
+            <div class="faq-answer">Tidak perlu. Kami membangun website menggunakan teknologi JAMstack yang di-deploy di Cloudflare. Ini membuat website Anda memiliki performa kelas dunia dan keamanan tinggi TANPA biaya sewa hosting bulanan seperti hosting konvensional.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Saya Guru, Apakah Bisa Punya Web Sendiri Tanpa Pusing Coding? <i data-lucide="chevron-down" class="arrow-icon" style="width:20px; height:20px;"></i></div>
+            <div class="faq-answer">Bisa banget! Kami menyediakan template Zero-Code berbasis AI. Anda tinggal klaim, isi konten, dan website siap dipakai. Jika bingung, kami ada program bootcamp pendampingan khusus guru.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">Bagaimana Buku/Karya Saya Bisa Dapat ISBN Resmi? <i data-lucide="chevron-down" class="arrow-icon" style="width:20px; height:20px;"></i></div>
+            <div class="faq-answer">Melalui layanan Penerbit JP Creative (bagian dari ekosistem Adjarindo). Kami akan mengkurasi, mendesain layout, dan mengurus penerbitan e-book maupun buku fisik hingga mendapatkan ISBN/QRCBN resmi dari Perpusnas.</div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        function toggleFaq(element) {
+            // Close all other items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== element.parentElement) {
+                    item.classList.remove('active');
+                }
+            });
+            // Toggle current item
+            element.parentElement.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
