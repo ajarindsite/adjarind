@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adjarindo Creative Aksara - Transformasi Digital & Karir</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons (Lightweight) -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
@@ -25,17 +23,14 @@
             --white: #FFFFFF;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
             color: var(--text-light);
             background-color: var(--navy);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Navbar */
@@ -61,6 +56,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            z-index: 1001; /* Agar logo tetap di atas menu mobile */
         }
 
         .logo span {
@@ -83,22 +79,16 @@
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--orange);
-        }
+        .nav-links a:hover { color: var(--orange); }
 
         /* Dropdown */
-        .dropdown {
-            position: relative;
-        }
-
+        .dropdown { position: relative; }
         .dropdown-toggle {
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 5px;
         }
-
         .dropdown-menu {
             position: absolute;
             top: 150%;
@@ -113,20 +103,18 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             overflow: hidden;
+            z-index: 1002;
         }
-
         .dropdown:hover .dropdown-menu {
             top: 120%;
             opacity: 1;
             visibility: visible;
         }
-
         .dropdown-menu a {
             display: block;
             padding: 12px 20px;
             font-size: 0.9rem;
         }
-
         .dropdown-menu a:hover {
             background: rgba(255,255,255,0.05);
             color: var(--orange);
@@ -136,7 +124,20 @@
             display: none;
             cursor: pointer;
             color: var(--white);
+            z-index: 1001;
         }
+
+        /* Mobile Overlay */
+        .mobile-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+        .mobile-overlay.active { opacity: 1; visibility: visible; }
 
         /* Hero Section */
         .hero {
@@ -145,29 +146,15 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 0 5%;
+            padding: 120px 5% 60px;
             background: 
                 linear-gradient(var(--bg-transparent), var(--bg-transparent)), 
                 url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed;
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .hero h1 span {
-            color: var(--orange);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            max-width: 800px;
-            margin: 0 auto 2.5rem auto;
-        }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; }
+        .hero h1 span { color: var(--orange); }
+        .hero p { font-size: 1.2rem; color: var(--text-gray); max-width: 800px; margin: 0 auto 2.5rem auto; }
 
         .btn {
             display: inline-block;
@@ -182,7 +169,6 @@
             cursor: pointer;
             font-size: 1rem;
         }
-
         .btn:hover {
             background: var(--orange-hover);
             transform: translateY(-2px);
@@ -190,238 +176,68 @@
         }
 
         /* Sections General */
-        section {
-            padding: 100px 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto 4rem auto;
-        }
+        section { padding: 80px 5%; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .section-subtitle { text-align: center; color: var(--text-gray); max-width: 600px; margin: 0 auto 4rem auto; }
 
         /* Pain Point */
-        .pain-point {
-            background: var(--navy-light);
-        }
-
-        .pain-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
+        .pain-point { background: var(--navy-light); }
+        .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
         .pain-card {
-            background: rgba(255,255,255,0.03);
-            padding: 30px;
-            border-radius: 12px;
+            background: rgba(255,255,255,0.03); padding: 30px; border-radius: 12px;
             border-left: 4px solid var(--purple);
         }
 
         /* Programs */
-        .programs {
-            background: var(--navy);
-        }
-
-        .program-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
+        .programs { background: var(--navy); }
+        .program-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .program-card {
             background: linear-gradient(145deg, rgba(26, 54, 93, 0.6), rgba(11, 28, 60, 0.8));
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 40px 30px;
-            border-radius: 16px;
-            transition: transform 0.3s;
+            border: 1px solid rgba(255,255,255,0.1); padding: 40px 30px; border-radius: 16px; transition: transform 0.3s;
         }
-
-        .program-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .program-card.featured {
-            border-top: 4px solid var(--orange);
-        }
-
-        .program-card.tech {
-            border-top: 4px solid var(--purple);
-        }
-
-        .program-card.community {
-            border-top: 4px solid var(--blue-accent);
-        }
-
-        .program-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            padding: 15px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.05);
-        }
-
-        .program-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .program-card ul {
-            list-style: none;
-            margin-bottom: 1.5rem;
-        }
-
-        .program-card ul li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
-            color: var(--text-gray);
-            font-size: 0.95rem;
-        }
-
-        .program-card ul li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--orange);
-            font-weight: bold;
-        }
-
-        .tagline {
-            font-weight: 600;
-            color: var(--white);
-            font-style: italic;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 1rem;
-        }
+        .program-card:hover { transform: translateY(-10px); }
+        .program-card.featured { border-top: 4px solid var(--orange); }
+        .program-card.tech { border-top: 4px solid var(--purple); }
+        .program-card.community { border-top: 4px solid var(--blue-accent); }
+        .program-icon { font-size: 2.5rem; margin-bottom: 1.5rem; display: inline-block; padding: 15px; border-radius: 12px; background: rgba(255,255,255,0.05); }
+        .program-card h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+        .program-card ul { list-style: none; margin-bottom: 1.5rem; }
+        .program-card ul li { margin-bottom: 10px; padding-left: 20px; position: relative; color: var(--text-gray); font-size: 0.9rem; }
+        .program-card ul li::before { content: "✓"; position: absolute; left: 0; color: var(--orange); font-weight: bold; }
+        .tagline { font-weight: 600; color: var(--white); font-style: italic; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; font-size: 0.95rem; }
 
         /* Tech Advantage */
         .tech-adv {
-            background: 
-                linear-gradient(rgba(128, 90, 213, 0.9), rgba(11, 28, 60, 0.95)), 
-                url('https://images.unsplash.com/photo-1558494949-efc52728101d?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed;
+            background: linear-gradient(rgba(128, 90, 213, 0.9), rgba(11, 28, 60, 0.95)), url('https://images.unsplash.com/photo-1558494949-efc52728101d?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed;
             text-align: center;
         }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 3rem;
-        }
-
-        .tech-item h4 {
-            color: var(--orange);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .tech-item p {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 3rem; }
+        .tech-item h4 { color: var(--orange); font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .tech-item p { color: var(--text-gray); font-size: 0.9rem; }
 
         /* Demo & Gallery Grid */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .demo-bg, .gallery-bg {
-            background: var(--navy-light);
-        }
-
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .demo-bg, .gallery-bg { background: var(--navy-light); }
         .card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            text-decoration: none;
-            color: var(--text-light);
-            display: block;
+            background: rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; transition: transform 0.3s;
+            text-decoration: none; color: var(--text-light); display: block;
         }
-
-        .card:hover {
-            transform: scale(1.03);
-        }
-
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 20px;
-        }
-
-        .card-content h4 {
-            margin-bottom: 0.5rem;
-        }
-
-        .card-content p {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-        }
+        .card:hover { transform: scale(1.03); }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card-content { padding: 20px; }
+        .card-content h4 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .card-content p { font-size: 0.9rem; color: var(--text-gray); }
 
         /* Gallery Lightbox */
         .lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 5%;
-            flex-direction: column;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            display: none; justify-content: center; align-items: center; z-index: 2000; padding: 5%; flex-direction: column;
         }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox-content {
-            max-width: 800px;
-            width: 100%;
-            background: var(--navy-light);
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .lightbox-content img {
-            width: 100%;
-            max-height: 60vh;
-            object-fit: cover;
-        }
-
-        .lightbox-desc {
-            padding: 20px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            z-index: 100;
-        }
+        .lightbox.active { display: flex; }
+        .lightbox-content { max-width: 800px; width: 100%; background: var(--navy-light); border-radius: 12px; overflow: hidden; position: relative; }
+        .lightbox-content img { width: 100%; max-height: 50vh; object-fit: cover; }
+        .lightbox-desc { padding: 20px; }
+        .close-btn { position: absolute; top: 10px; right: 15px; color: white; font-size: 2rem; cursor: pointer; z-index: 100; }
 
         /* CTA */
         .cta-section {
@@ -430,67 +246,64 @@
         }
 
         /* Footer */
-        footer {
-            background: #050e1f;
-            padding: 60px 5% 30px;
-            color: var(--text-gray);
-        }
+        footer { background: #050e1f; padding: 60px 5% 30px; color: var(--text-gray); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        footer a { color: var(--text-gray); text-decoration: none; display: block; margin-bottom: 10px; font-size: 0.9rem; }
+        footer a:hover { color: var(--orange); }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.85rem; }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        footer a {
-            color: var(--text-gray);
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        footer a:hover {
-            color: var(--orange);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            font-size: 0.85rem;
-        }
-
-        /* Responsive */
+        /* MOBILE RESPONSIVE CSS */
         @media (max-width: 768px) {
+            .hamburger { display: block; }
+            
             .nav-links {
                 position: fixed;
-                background: var(--navy);
                 top: 0;
-                right: "-100%";
-                width: 70%;
+                right: -100%; /* Sembunyikan ke kanan layar */
+                width: 75%;
                 height: 100vh;
+                background: var(--navy);
                 flex-direction: column;
-                padding-top: 80px;
-                transition: 0.3s;
+                align-items: flex-start;
+                padding: 100px 30px 30px;
+                transition: right 0.3s ease-in-out;
+                z-index: 1000;
+                overflow-y: auto;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.5);
             }
+            .nav-links.active { right: 0; /* Muncul saat aktif */ }
+            
+            .nav-links li { width: 100%; margin-bottom: 15px; }
+            .nav-links a { font-size: 1.2rem; display: block; width: 100%; }
+            
+            /* Atur Dropdown di HP (Klik/Tap) */
+            .dropdown-menu {
+                position: static;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+                background: rgba(255,255,255,0.05);
+                border: none;
+                box-shadow: none;
+                min-width: 100%;
+                border-radius: 8px;
+                margin-top: 10px;
+            }
+            .dropdown.open .dropdown-menu { max-height: 500px; /* Buka saat diklik */ }
+            .dropdown-menu a { padding: 10px 15px; font-size: 1rem; }
 
-            .nav-links.active {
-                right: 0;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
+            .hero { padding-top: 120px; }
+            .hero h1 { font-size: 2.2rem; }
+            .hero p { font-size: 1rem; }
+            
+            .section-title { font-size: 2rem; }
+            .program-grid, .pain-grid { grid-template-columns: 1fr; }
+            
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            footer a { display: inline-block; margin: 0 10px; }
         }
     </style>
 </head>
@@ -502,8 +315,8 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
             <li><a href="#programs">Program</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle">Demo <i data-lucide="chevron-down" style="width:16px; height:16px;"></i></a>
+            <li class="dropdown" id="demoDropdown">
+                <a class="dropdown-toggle" onclick="toggleDropdown(event)">Demo <i data-lucide="chevron-down" style="width:16px; height:16px;"></i></a>
                 <div class="dropdown-menu">
                     <a href="LMS App/index.html">LMS App</a>
                     <a href="Web Personal/index.html">Web Personal</a>
@@ -513,12 +326,15 @@
                 </div>
             </li>
             <li><a href="#gallery">Galeri</a></li>
-            <li><a href="https://wa.me/6285710908070" class="btn" style="padding: 8px 20px; font-size: 0.9rem;">Hubungi Kami</a></li>
+            <li><a href="https://wa.me/6285710908070" class="btn" style="padding: 8px 20px; font-size: 0.9rem; text-align:center;">Hubungi Kami</a></li>
         </ul>
         <div class="hamburger" id="hamburger">
             <i data-lucide="menu"></i>
         </div>
     </nav>
+
+    <!-- Overlay Hitam untuk Mobile Menu -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -549,43 +365,40 @@
         <p class="section-subtitle">Ekosistem lengkap yang menggabungkan Web Builder, Creative Solution, dan Penerbitan Legal.</p>
         
         <div class="program-grid">
-            <!-- Program 1 -->
             <div class="program-card featured">
                 <div class="program-icon">🚀</div>
                 <h3>Smart School Transformation</h3>
                 <p style="font-size:0.9rem; color:var(--orange); margin-bottom:15px;">B2B untuk Sekolah</p>
                 <ul>
-                    <li><strong>Web Builder:</strong> Infrastruktur digital sekolah (Web, LMS, Portofolio Guru) berbasis AI & Zero-Code. Deploy Cloudflare tanpa biaya hosting.</li>
-                    <li><strong>Creative Solution:</strong> Workshop pendampingan guru agar melek AI dan bisa otomatisasi perangkat ajar.</li>
-                    <li><strong>Penerbit JP Creative:</strong> Konversi karya guru/siswa menjadi e-book ber-ISBN/QRCBN resmi.</li>
+                    <li><strong>Web Builder:</strong> Infrastruktur digital sekolah berbasis AI & Zero-Code. Tanpa biaya hosting.</li>
+                    <li><strong>Creative Solution:</strong> Workshop pendampingan guru agar melek AI dan otomatisasi perangkat ajar.</li>
+                    <li><strong>Penerbit JP Creative:</strong> Konversi karya guru/siswa menjadi e-book ber-ISBN resmi.</li>
                 </ul>
-                <p class="tagline">Value: Sekolah dapat web, guru jago AI, punya produk literasi digital sendiri.</p>
+                <p class="tagline">Value: Sekolah dapat web, guru jago AI, punya produk literasi sendiri.</p>
             </div>
 
-            <!-- Program 2 -->
             <div class="program-card tech">
                 <div class="program-icon">💼</div>
                 <h3>Career Readiness Hub</h3>
                 <p style="font-size:0.9rem; color:var(--purple); margin-bottom:15px;">B2C untuk Siswa/Profesional Muda</p>
                 <ul>
-                    <li><strong>Web Builder:</strong> Pembuatan Web Portofolio Resume profesional (jauh lebih kuat dari CV biasa untuk menembus HRD).</li>
+                    <li><strong>Web Builder:</strong> Pembuatan Web Portofolio Resume profesional untuk menembus HRD.</li>
                     <li><strong>Creative Solution:</strong> Coaching "Tembus HRD Killer", simulasi interview, dan personal career coaching.</li>
                     <li><strong>Penerbit JP Creative:</strong> E-book/buku fisik panduan strategi karir & personal branding.</li>
                 </ul>
-                <p class="tagline">Value: Beli paket "Buku + Web Portofolio + Coaching". Murni Creative Agency, bebas jerat izin KBLI Pendidikan.</p>
+                <p class="tagline">Value: Murni Creative Agency & Publishing, bebas jerat izin KBLI Pendidikan.</p>
             </div>
 
-            <!-- Program 3 -->
             <div class="program-card community">
                 <div class="program-icon">👩‍🏫</div>
                 <h3>Guru Kreatif, Guru Digital</h3>
                 <p style="font-size:0.9rem; color:var(--blue-accent); margin-bottom:15px;">SaaS + Community</p>
                 <ul>
-                    <li><strong>Creative Solution:</strong> Bootcamp online berseri tentang otomatisasi administrasi dan pemanfaatan AI untuk mengajar.</li>
-                    <li><strong>Web Builder:</strong> Template web siap pakai khusus guru (LMS mini, web perangkat ajar) yang ringan & gratis hosting.</li>
-                    <li><strong>Penerbit JP Creative:</strong> Fasilitas co-authoring, karya guru dibukukan bersama dalam buku antologi ber-ISBN.</li>
+                    <li><strong>Creative Solution:</strong> Bootcamp online berseri otomasi administrasi dan pemanfaatan AI.</li>
+                    <li><strong>Web Builder:</strong> Template web siap pakai khusus guru yang ringan & gratis hosting.</li>
+                    <li><strong>Penerbit JP Creative:</strong> Fasilitas co-authoring buku antologi ber-ISBN.</li>
                 </ul>
-                <p class="tagline">Value: Guru punya kelas digital sendiri, bebas biaya server, dan menjadi penulis buku resmi.</p>
+                <p class="tagline">Value: Guru punya kelas digital sendiri dan menjadi penulis buku resmi.</p>
             </div>
         </div>
     </section>
@@ -598,12 +411,12 @@
             <div class="tech-item">
                 <i data-lucide="cpu" style="width:40px; height:40px; color:var(--orange); margin-bottom:10px;"></i>
                 <h4>AI & Zero Code</h4>
-                <p>Proses pembuatan dipercepat dengan AI. Klien tidak perlu pusing menulis kode.</p>
+                <p>Dipercepat dengan AI. Klien tidak perlu pusing menulis kode.</p>
             </div>
             <div class="tech-item">
                 <i data-lucide="cloud" style="width:40px; height:40px; color:var(--orange); margin-bottom:10px;"></i>
                 <h4>JAMstack + Cloudflare</h4>
-                <p>Kecepatan tinggi, keamanan tingkat enterprise, dan tanpa biaya sewa hosting bulanan.</p>
+                <p>Kecepatan tinggi dan tanpa biaya sewa hosting bulanan.</p>
             </div>
             <div class="tech-item">
                 <i data-lucide="zap" style="width:40px; height:40px; color:var(--orange); margin-bottom:10px;"></i>
@@ -613,7 +426,7 @@
             <div class="tech-item">
                 <i data-lucide="shield-check" style="width:40px; height:40px; color:var(--orange); margin-bottom:10px;"></i>
                 <h4>Aman & Legal</h4>
-                <p>Beroperasi dengan legalitas KBLIT Creative Agency & Publishing yang sah.</p>
+                <p>Legalitas KBLI Creative Agency & Publishing yang sah.</p>
             </div>
         </div>
     </section>
@@ -625,38 +438,23 @@
         <div class="grid-container">
             <a href="LMS App/index.html" class="card">
                 <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1000&auto=format&fit=crop" alt="LMS">
-                <div class="card-content">
-                    <h4>Demo LMS App</h4>
-                    <p>Platform Learning Management System untuk sekolah.</p>
-                </div>
+                <div class="card-content"><h4>Demo LMS App</h4><p>Platform LMS untuk sekolah.</p></div>
             </a>
             <a href="Web Personal/index.html" class="card">
                 <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1000&auto=format&fit=crop" alt="Personal Web">
-                <div class="card-content">
-                    <h4>Demo Web Personal</h4>
-                    <p>Portofolio digital untuk melamar kerja / branding guru.</p>
-                </div>
+                <div class="card-content"><h4>Demo Web Personal</h4><p>Portofolio digital melamar kerja.</p></div>
             </a>
             <a href="Keuangan/index.html" class="card">
                 <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1000&auto=format&fit=crop" alt="Keuangan">
-                <div class="card-content">
-                    <h4>Demo Web Keuangan</h4>
-                    <p>Dashboard keuangan dan kontrol arus kas.</p>
-                </div>
+                <div class="card-content"><h4>Demo Web Keuangan</h4><p>Dashboard kontrol arus kas.</p></div>
             </a>
             <a href="Teacher Hub/index.html" class="card">
                 <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1000&auto=format&fit=crop" alt="Teacher Hub">
-                <div class="card-content">
-                    <h4>Demo Teacher Hub</h4>
-                    <p>Pusat komunitas dan perangkat ajar digital guru.</p>
-                </div>
+                <div class="card-content"><h4>Demo Teacher Hub</h4><p>Pusat perangkat ajar digital.</p></div>
             </a>
             <a href="Blog/index.html" class="card">
                 <img src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1000&auto=format&fit=crop" alt="Blog">
-                <div class="card-content">
-                    <h4>Demo Web Artikel</h4>
-                    <p>Blog dan portal berita berbasis JAMstack super cepat.</p>
-                </div>
+                <div class="card-content"><h4>Demo Web Artikel</h4><p>Blog JAMstack super cepat.</p></div>
             </a>
         </div>
     </section>
@@ -705,21 +503,19 @@
         <div class="footer-grid">
             <div>
                 <h3 style="color: var(--white); margin-bottom: 20px;">Adjarindo Creative Aksara</h3>
-                <p style="font-size: 0.9rem; line-height: 1.8;">Ekosistem transformasi digital dan karir berbasis AI & Cloud. Berbadan hukum PT dengan legalitas KBLI Teknologi & Penerbitan.</p>
+                <p style="font-size: 0.9rem; line-height: 1.8;">Ekosistem transformasi digital dan karir berbasis AI & Cloud. Berbadan hukum PT.</p>
             </div>
             <div>
                 <h3 style="color: var(--white); margin-bottom: 20px;">Legalitas</h3>
-                <a href="legal/tentang-kami.html">Tentang Kami</a>
-                <a href="legal/kebijakan-privasi.html">Kebijakan Privasi</a>
-                <a href="legal/syarat-ketentuan.html">Syarat & Ketentuan</a>
                 <a href="legal/disclaimer.html">Disclaimer</a>
                 <a href="legal/faq.html">FAQ</a>
+                <a href="legal/kebijakan-privasi.html">Kebijakan Privasi</a>
+                <a href="legal/syarat-ketentuan.html">Syarat & Ketentuan</a>
             </div>
             <div>
                 <h3 style="color: var(--white); margin-bottom: 20px;">Kontak</h3>
-                <p>Email: info@ajarind.web.id</p>
                 <p>WhatsApp: 0857-1090-8070</p>
-                <p>Website: ajarind.web.id</p>
+                <p>Domain: ajarind.web.id</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -747,33 +543,51 @@
         // Mobile Menu Toggle
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+            mobileOverlay.classList.toggle('active');
         });
 
-        // Close mobile menu on link click
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        // Close mobile menu when overlay clicked
+        mobileOverlay.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+        });
+
+        // Close mobile menu on link click (except dropdown)
+        document.querySelectorAll('.nav-links > li:not(.dropdown) > a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
+                mobileOverlay.classList.remove('active');
             });
         });
+
+        // Mobile Dropdown Toggle
+        function toggleDropdown(e) {
+            if(window.innerWidth <= 768) {
+                e.preventDefault();
+                document.getElementById('demoDropdown').classList.toggle('open');
+            }
+        }
 
         // Gallery Lightbox
         function openLightbox(element) {
             const img = element.querySelector('img').src;
             const title = element.querySelector('h4').innerText;
-            const desc = element.querySelector('p').innerText; // Gets the hidden p tag content
+            const desc = element.querySelector('p').innerText;
 
             document.getElementById('lightbox-img').src = img;
             document.getElementById('lightbox-title').innerText = title;
             document.getElementById('lightbox-desc').innerText = desc;
             document.getElementById('lightbox').classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto';
         }
     </script>
 </body>
